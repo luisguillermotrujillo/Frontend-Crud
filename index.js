@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => loadHTMLtable(data["data"]))
     
 });
-const addBtn = document.gelElementById("add-Name-btn");
+const addBtn = document.getElementById("add-Name-btn");
 
 addBtn.addEventListener("click", function () {
-    const nameImput = document.gelElementById("name-input");
+    const nameImput = document.getElementById("name-input");
     const name = nameImput.value;
     nameImput.value = "";
 
@@ -19,8 +19,11 @@ addBtn.addEventListener("click", function () {
         body: JSON.stringify({name: name})
     })
     .then(response => response.json())
-    .then(data=>)
+    .then(data => insertRowIntoTable(data["data"]))
 });
+function  insertRowIntoTable(data) {
+    
+}
 
 function loadHTMLtable(data) {
     const table = document.querySelector("table tbody");

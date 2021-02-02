@@ -28,15 +28,30 @@ document.querySelector("table tbody").addEventListener("click",function(event) {
         deleteRowById(event.target.dataset.id);
         console.log(event.target.dataset.id);
     }
+    if (event.target.className === "edit-row-btn") {
+        handleEditRow(event.target.dataset.id);
+    }
 });
+
+const updateBtn = document.querySelector("#update-row-btn");
 
 function deleteRowById(id) {
     fetch("http://localhost:5000/delete/" + id,{
         method:"DELETE"
     })
 .then(response => response.json())
-.then(data => console.log(data));
+.then(data => {
+    if (data.success) {
+        location.reload();
+    }
+});
 }
+
+function handleEditRow(id) {
+    const updateSection = document.querySelector("#update-row")
+    updateSection.hidden = false;
+}
+
 function  insertRowIntoTable(data) {
     const table = document.querySelector("table tbody");
     const isTableData = table.querySelector(".no-data");

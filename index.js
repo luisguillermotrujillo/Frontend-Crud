@@ -55,9 +55,12 @@ function handleEditRow(id) {
 
 updateBtn.onclick = function() {
     const updateNameInput = document.querySelector("#update-name-input"); 
-}
+
 fetch("http://localhost:5000/update",{
     method: "PATCH",
+    headers:{
+        "Content-type":"application/json"
+    },
     body: JSON.stringify({
         id: updateNameInput.dataset.id,
         name:updateNameInput.value
@@ -70,7 +73,7 @@ fetch("http://localhost:5000/update",{
         location.reload();
     }
 })
-
+}
 function  insertRowIntoTable(data) {
     const table = document.querySelector("table tbody");
     const isTableData = table.querySelector(".no-data");

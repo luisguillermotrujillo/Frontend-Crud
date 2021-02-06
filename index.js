@@ -34,6 +34,16 @@ document.querySelector("table tbody").addEventListener("click",function(event) {
 });
 
 const updateBtn = document.querySelector("#update-row-btn");
+const searchBtn = document.querySelector("#search-btn");
+
+searchBtn.addEventListener("click",function () {
+    const searchValue = document.querySelector("#search-input").value;
+    console.log("funcion " + searchValue)
+
+    fetch("http://localhost:5000/search/" + searchValue)
+    .then(response => response.json())
+    .then(data => loadHTMLtable(data["data"]));
+})
 
 function deleteRowById(id) {
     fetch("http://localhost:5000/delete/" + id,{
@@ -55,6 +65,7 @@ function handleEditRow(id) {
 
 updateBtn.onclick = function() {
     const updateNameInput = document.querySelector("#update-name-input"); 
+    console.log("probando: " + updateBtn.dataset.id);
 
 fetch("http://localhost:5000/update",{
     method: "PATCH",
@@ -62,7 +73,7 @@ fetch("http://localhost:5000/update",{
         "Content-type":"application/json"
     },
     body: JSON.stringify({
-        id: updateNameInput.dataset.id,
+        id: updateBtn.dataset.id,
         name:updateNameInput.value
     }) 
 })
